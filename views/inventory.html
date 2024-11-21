@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/inventory.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ 
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-logo">
+        <h2>Stock Inventory</h2>
+    </div>
+    <div class="navbar-menu">
+        <ul>
+            <li>
+                <a href="/home"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="/inventory"><i class="fas fa-box"></i><span>Inventario</span></a>
+            </li>
+            <li>
+                <a href="/provider"><i class="fas fa-truck"></i><span>Proveedores</span></a>
+            </li>
+            <li>
+                <a href="/users"><i class="fas fa-users"></i><span>Usuarios</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="navbar-home-button">
+  <a href="/home.html">
+      <button class="home-button">Ir a Home</button>
+  </a>
+</div>
+
+
+  <!-- Contenedor del Inventario -->
+  <div class="inventory-container">
+    <h2>Inventario</h2>
+    
+    <!-- Botón Agregar -->
+    <div class="add-button-container">
+      <button id="addProductButton" class="add-button">Agregar +</button>
+    </div>
+    
+        <!-- Botón filtrar -->
+
+    <div class="filter-button-container">
+      <button id="filterButton" class="filter-button">
+        <i class="fas fa-filter"></i> Filtrar
+      </button>
+    </div>
+
+    <div class="category-button-container">
+      <button id="addCategoryButton" class="add-button">Agregar Categoría</button>
+      <button id="deleteCategoryButton" class="add-button">Eliminar Categoría</button>
+    </div>
+ <!-- Botón Salida -->
+    <div class="exit-button-container">
+       <!-- Nuevo botón para Registrar Entrada -->
+       <button id="openAddStockModal" class="add-button">Registrar Entrada</button>
+      <button id="openExitModal" class="add-button">Registrar Salidas</button>
+      
+  
+      <div class="export-button-container">
+        <button id="exportPDF" class="export-button">Exportar a PDF</button>
+        <button id="exportCSV" class="export-button">Exportar a CSV</button>
+        
+      </div>
+
+      
+      </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Categoría</th>
+          <th>Stock</th>
+          <th>Stock Mínimo</th>
+          <th>Estado</th>
+          <th>Proveedor</th>
+          <th>Fecha de Caducidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="inventoryTable">
+        <!-- Productos se cargarán aquí mediante JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+<!-- Modal para Agregar Producto -->
+<div id="addProductModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeModal">&times;</span>
+    <h2>Agregar Producto</h2>
+    <form id="addProductForm" class="form-container">
+      <label for="productName">Nombre:</label>
+      <input type="text" id="productName" name="nombre" required>
+
+      <label for="productBarcode">Código de Barras:</label>
+      <input type="text" id="productBarcode" name="codigo_barras" required>
+
+
+      <label for="productPrice">Precio:</label>
+      <input type="number" step="0.01" id="productPrice" name="precio" required>
+
+      <label for="productCategory">Categoría:</label>
+      <select id="productCategory" name="id_categoria" required></select>
+
+      <label for="productStock">Stock:</label>
+      <input type="number" id="productStock" name="stock" required>
+
+      <label for="productMinStock">Stock Mínimo:</label>
+      <input type="number" id="productMinStock" name="stock_minimo" required>
+
+      <label for="productState">Estado:</label>
+      <select id="productState" name="id_estado_producto" required></select>
+
+      <label for="productProvider">Proveedor:</label>
+      <select id="productProvider" name="id_proveedor" required></select>
+
+      <label for="productExpiry">Fecha de Caducidad:</label>
+      <input type="date" id="productExpiry" name="fecha_caducidad" required>
+
+      <button type="submit" class="submit-button">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para Editar Producto -->
+<div id="editProductModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeEditModal">&times;</span>
+    <h2>Editar Producto</h2>
+    <form id="editProductForm" class="form-container">
+      <input type="hidden" id="editProductId" name="id_producto">
+
+      <label for="editProductName">Nombre:</label>
+      <input type="text" id="editProductName" name="nombre" required>
+
+      <label for="editProductBarcode">Código de Barras:</label>
+      <input type="text" id="editProductBarcode" name="codigo_barras" required>
+
+      <label for="editProductPrice">Precio:</label>
+      <input type="number" step="0.01" id="editProductPrice" name="precio" required>
+
+      <label for="editProductCategory">Categoría:</label>
+      <select id="editProductCategory" name="id_categoria" required></select>
+
+      <label for="editProductMinStock">Stock Mínimo:</label>
+      <input type="number" id="editProductMinStock" name="stock_minimo" required>
+
+      <label for="editProductProvider">Proveedor:</label>
+      <select id="editProductProvider" name="id_proveedor" required></select>
+
+      <label for="editProductExpiry">Fecha de Caducidad:</label>
+      <input type="date" id="editProductExpiry" name="fecha_caducidad" required>
+
+      <button type="submit" class="submit-button">Actualizar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para Registrar Entrada de Stock -->
+<div id="addStockModal" class="modal">
+  <div class="modal-content">
+    <span id="closeAddStockModal" class="close">&times;</span>
+    <h2>Registrar Entrada de Stock</h2>
+    <form id="addStockForm">
+        <div class="form-group">
+            <label for="searchProductName">Buscar por Nombre:</label>
+            <input type="text" id="searchProductName" placeholder="Buscar producto por nombre...">
+        </div>
+        <div class="form-group">
+            <label for="searchProductBarcode">Buscar por Código de Barras:</label>
+            <input type="text" id="searchProductBarcode" placeholder="Buscar producto por código de barras...">
+        </div>
+        <div class="form-group">
+            <label for="stockProductSelect">Producto:</label>
+            <select id="stockProductSelect" name="id_producto" required></select>
+        </div>
+        <div class="form-group">
+            <label for="stockQuantity">Cantidad:</label>
+            <input type="number" id="stockQuantity" name="cantidad" min="1" required>
+        </div>
+        <div class="form-group">
+            <label for="stockReason">Motivo:</label>
+            <input type="text" id="stockReason" name="motivo" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Entrada</button>
+    </form>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+
+
+<!-- Modal para Agregar Categoría -->
+<div id="addCategoryModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeAddCategoryModal">&times;</span>
+    <h2>Agregar Categoría</h2>
+    <form id="addCategoryForm">
+      <label for="categoryName">Nombre de Categoría:</label>
+      <input type="text" id="categoryName" name="nombre_categoria" required>
+      <button type="submit" class="submit-button">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para Eliminar Categoría -->
+<div id="deleteCategoryModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeDeleteCategoryModal">&times;</span>
+    <h2>Eliminar Categoría</h2>
+    <form id="deleteCategoryForm">
+      <label for="deleteCategorySelect">Seleccione la Categoría a Eliminar:</label>
+      <select id="deleteCategorySelect" name="id_categoria" required></select>
+      <button type="submit" class="submit-button">Eliminar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Filtro -->
+<div id="filterModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeFilterModal">&times;</span>
+    <h2>Filtrar Productos</h2>
+    <form id="filterForm">
+      <label for="searchProductFilter">Buscar Producto:</label>
+      <input type="text" id="searchProductFilter" placeholder="Buscar producto...">
+      <label for="categoryFilter">Categoría:</label>
+      <select id="categoryFilter">
+        <option value="">Todas</option>
+      </select>
+
+      <label for="providerFilter">Proveedor:</label>
+      <select id="providerFilter">
+        <option value="">Todos</option>
+      </select>
+
+      <label for="statusFilter">Estado:</label>
+      <select id="statusFilter">
+        <option value="">Todos</option>
+      </select>
+
+      <button type="submit" class="submit-button">Aplicar Filtros</button>
+    </form>
+  </div>
+</div>
+<!-- Modal para Registrar Salidas de Producto -->
+<div id="registerExitModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeExitModal">&times;</span>
+    <h2>Registrar Salidas de Inventario</h2>
+    <form id="registerExitForm" class="form-container">
+      <div class="form-group">
+        <label for="searchProductExit">Buscar por Nombre:</label>
+        <input type="text" id="searchProductExit" placeholder="Buscar producto por nombre...">
+      </div>
+      <div class="form-group">
+        <label for="searchProductExitBarcode">Buscar por Código de Barras:</label>
+        <input type="text" id="searchProductExitBarcode" placeholder="Buscar producto por código de barras...">
+      </div>
+      <table id="exitTable">
+        <thead>
+          <tr>
+            <th>Seleccionar Producto</th>
+            <th>Motivo de Salida</th>
+            <th>Cantidad a Retirar</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="exitTableBody">
+          <!-- Se agregarán filas dinámicamente aquí -->
+        </tbody>
+      </table>
+      <button type="button" id="addRowButton" class="add-row-button">+ Agregar otra salida</button>
+      <button type="submit" class="submit-button">Registrar Salidas</button>
+      
+     
+    </form>
+  </div>
+</div>
+
+
+
+
+<script src="js/toast.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <script src="js/inventory.js"></script>
+  <script src="js/AddStockModal.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/AddProductModal.js"></script>
+  <script src="js/EditProductModal.js"></script>
+  <script src="js/FilterModal.js"></script>
+  <script src="js/RegisterExitModal.js"></script>
+  
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio - Stock Inventory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/modal.css"> <!-- Archivo CSS para estilos del modal -->
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-logo">
+      <h2>Stock Inventory</h2>
+    </div>
+    <div class="navbar-menu">
+      <ul>
+        <li>
+          <a href="/home"><i class="fas fa-home"></i><span>Dashboard</span></a>
+        </li>
+        <li>
+          <a href="/inventory"><i class="fas fa-box"></i><span>Inventario</span></a>
+        </li>
+        <li>
+          <a href="/provider"><i class="fas fa-truck"></i><span>Proveedores</span></a>
+        </li>
+        <li>
+          <a href="/users"><i class="fas fa-users"></i><span>Usuarios</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="main-content">
+    <div class="home-container">
+      <div class="header">
+        <h2>Abarrotes San Pedro Inventario</h2>
+        <div class="icon-container">
+          <a href="#" class="icon" id="userIcon"><i class="fas fa-user"></i></a>
+          <a href="notification.html" class="icon" id="notificationIcon"><i class="fas fa-bell"></i></a>
+          <a href="#" class="icon"><i class="fas fa-ellipsis-v"></i></a>
+        </div>
+      </div>
+      <p>Desde aquí puedes navegar a las diferentes secciones del sistema usando la barra lateral.</p>
+      <p>Selecciona una opción en la barra para comenzar.</p>
+
+      <!-- Cuadros de texto en el centro de la pantalla -->
+      <div class="stats-container">
+        
+        <div class="stat-box">
+          <h3>Total de Productos en Stock</h3>
+          <p id="total-stock">Cargando...</p>
+        </div>
+        <div class="stat-box">
+          <h3>Notificaciones Pendientes</h3>
+          <p id="pending-notifications">Cargando...</p>
+        </div>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de cierre de sesión -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <p>¿Estás seguro de que deseas cerrar sesión?</p>
+      <button id="confirmLogout">Sí, cerrar sesión</button>
+      <button id="cancelLogout">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="faq">
+        <h3>Preguntas Frecuentes</h3>
+        <ul>
+          <li><a href="#" class="faq-link" data-answer="Para agregar un producto nuevo, navega a la sección de Inventario y utiliza el botón 'Añadir Producto'.">¿Cómo puedo agregar un producto nuevo?</a></li>
+          <li><a href="#" class="faq-link" data-answer="En la sección de Proveedores, puedes añadir o editar proveedores.">¿Cómo gestionar proveedores?</a></li>
+          <li><a href="#" class="faq-link" data-answer="Es necesario contactar al administrador, o puedes enviarnos un mensaje por whatsapp haciendo clic en el icono">¿Qué hacer si olvido mi contraseña?</a></li>
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>¿Necesitas ayuda?</h3>
+        <a href="https://wa.me/526621806088?text=Hola,%20necesito%20ayuda%20con%20el%20sistema%20de%20inventario.">
+          <button class="whatsapp-button"><i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp</button>
+        </a>
+      </div>
+      <div class="credits">
+        <p>&copy; 2024 Abarrotes San Pedro Inventario. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+  <div id="faqModal" class="faq-modal">
+    <div class="modal-content">
+      <span class="close" id="closeFaqModal">&times;</span>
+      <p id="faqAnswer">Aquí aparecerá la respuesta a la pregunta seleccionada.</p>
+    </div>
+
+  <script src="js/home.js"></script>
+  <script src="js/test-dropdown.js" defer></script>
+  <script src="js/faq.js" defer></script>
+
+</body>
+</html>
