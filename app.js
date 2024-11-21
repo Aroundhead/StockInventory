@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
+const cors = require('cors');
 require('dotenv').config(); // Cargar variables de entorno desde .env
 
 const connection = require('./config/db'); // Asegúrate de que esta ruta es correcta
@@ -21,6 +22,13 @@ const homeController = require('./controllers/homeController');
 // Middleware para manejar JSON y formularios
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configuración de CORS
+app.use(cors({
+  origin: '*', // Permitir todas las solicitudes de origen
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
 
 // Configuración de sesiones con MySQLStore
 const sessionStore = new MySQLStore({
